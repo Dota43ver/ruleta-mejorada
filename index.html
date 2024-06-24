@@ -1,114 +1,229 @@
 <!DOCTYPE html>
 <html>
-<head>
-	<title>Sorteo</title>
-	<link rel="stylesheet" type="text/css" href="index.css">
-</head>
-<body>
-	<div class="contenedor">
-		<h1>Concursantes</h1>
-		<div class="concursantes">
-			<canvas id="idcanvas" width="600" height="600"></canvas>
-			<br>
-			<button onclick="sortear()"><span id="idestado">Sortear</span></button>
-			<div class="mark-winner"></div>
-		</div>
-	</div>
-	<script type="text/javascript">
-		const array_concursantes=
-		[
-			//'kamila Villablanca'-GANADORA
-			'Daniela Salvador Caballero'
-			,'LeoGarcia01'
-			,'Gaspak'
-			,'Oxmar Yamith'
-			,'Mauro Toranzo'
-			,'Gerardo Garcia Hernandez'
-			,'Pierre Zurita Ramirez'
-			,'Pierre Zurita Ramirez'
-			,'Daniela Salvador Caballero'
-			,'samp play'
-			,'Eduardo Joel Paucarpura Sanchez'
-			,'Anthony Espino'
-			,'Jordan Team'
-			,'Gerardo Garcia Hernandez'
-			,'Anthony Espino'
-			,'Oxmar Yamith'
-			,'Oxmar Yamith'
-			,'Oxmar Yamith'
-			,'Oxmar Yamith'
-			,'Oxmar Yamith'
-			,'Gerardo Garcia Hernandez'
-			,'TheComicalCanadian'
-		];
+  <head>
+    <title>Sorteo</title>
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="index.css" />
+  </head>
+  <body>
+    <div class="contenedor">
+      <h1>heroes</h1>
+      <div class="concursantes">
+        <canvas
+          id="idcanvas"
+          width="600"
+          height="600"></canvas>
+        <br />
+        <button onclick="sortear()"><span id="idestado">Sortear</span></button>
+        <div class="mark-winner"></div>
+        <div
+          id="ganador"
+          style="margin-top: 20px; font-size: 24px"></div>
+        <div
+          id="descripcion"
+          style="margin-top: 10px; font-size: 18px; color: #fff"></div>
+      </div>
+    </div>
+    <script type="text/javascript">
+      const array_concursantes = [
+        "heroes animales",
+        "heroes aoe",
+        "heroes bichero",
+        "heroes color amarillo/marron",
+        "heroes color azul",
+        "heroes color gris",
+        "heroes color rojo",
+        "heroes color verde",
+        "heroes color violeta",
+        "heroes con 2 pasivas",
+        "heroes con barba",
+        "heroes con capa",
+        "heroes con fuego",
+        "heroes con montura",
+        "heroes con ilus",
+        "heroes con slow",
+        "heroes con stun",
+        "heroes corre rapido",
+        "heroes curadores",
+        "heroes de agilidad",
+        "heroes de fuerza",
+        "heroes del mar profundo?",
+        "heroes desnudos",
+        "heroes electricidad",
+        "heroes facu",
+        "heroes globales",
+        "heroes hielo",
+        "heroes humanoides/bipedos",
+        "heroes inteligencia",
+        "heroes invis",
+        "heroes ivo",
+        "heroes marean",
+        "heroes mecha",
+        "heroes naturaleza",
+        "heroes que caminen en 4 patas o mas",
+        "heroes que muestran los dientes",
+        "heroes que te cambian de lugar",
+        "heroes que vistan armadura",
+        "heroes riki",
+        "heroes sin manos",
+        "heroes sin piernas",
+        "heroes superulti aoe",
+        "heroes t ",
+        "heroes transformistas",
+        "heroes universales",
+        "heroes voladores",
+        "heroes waifu",
+        "heroes zombies",
+        "tu mejor heroe",
+      ];
 
-		let canvas=document.getElementById("idcanvas");
-		let context=canvas.getContext("2d");
-		let center=canvas.width/2;
+      const descripciones = [
+        "ardilla, sapo, ursa, sanka, brood, phoenix, gata, magnus",
+        "tiene que tener skill no targeteable, ej: ulti jakiro",
+        "bambi chen furion enigma lycan",
+        "kotol, bristle, dawnbreaker, legion, shaker",
+        "razor riki arc luna enigma storm zeus",
+        "tiny vieja timber techis clock tinker",
+        "chaos axe doom davion blood never",
+        "arbol pugna necro furion venom viper",
+        "void dazzle darkseer bane shadowdemon",
+        "leoric chato meepo naix centa luna medushard AGH: venom, rexar",
+        "chato shaker bristle pl mono void tinker kotol furion necro leoric ",
+        "arc drow pa chato abba  windd marci lino sd **sets con capa",
+        "lina doom clinkz bat huskar ember fenix jakiro",
+        "kotol chaos, chen, abbadon, disruptor mirana bat gyro alchemist",
+        "naga chaos terroblade pl spectre darkseer",
+        "venom winter void riki pudge silencer",
+        "tiny sven davion shaker mono lina",
+        "centa bb bara slardar blood bh razor troll weaver darkseer nyx  wr",
+        "bambi oracle dazle necro abbadon chen  jugg arkitroll wd",
+        "pensa papi",
+        "te cuesta no?",
+        "kunka tide slardar slark naga morph",
+        "enigma bane puck viper fenix ",
+        "arc lina lesh zeus storm disruptor invoker razor",
+        "dazzle am morph rhasta lino maiden lich pl",
+        "zeus centa silencer gata invoker io clock arbol bara",
+        "jakiro aa maiden lich drow tuskar winter invoker ",
+        "cualquiera en 2 patas caminando",
+        "no es dificil...",
+        "weaver riki nyx  invoker gata sanka visage gondar clinkz ",
+        "tiny clock vieja tide timber bristle nyx slardar",
+        "rubick tirapiedra willow riki wind arbol void ember voker tusk bara",
+        "clock tinker sniper alche giro techis",
+        "tiny arbol furion morph cualquier arbolero tipo wind bambi?",
+        "brood weaver sk nyx lesh babosa centa magnus bambi",
+        "naix ambulancia puche tide slark void meepo visage rhasta mars",
+        "tiny puche mars bat rubick disruptor",
+        "sven axe bristle chaos doom dk",
+        "lino ancient sky warlock silencer puche gata jakiro -invoker babosas",
+        "fenix jakiro sanka visage viper spectre",
+        "visage venom never enigma io morph ",
+        "enigma zeus centa darkseer tide furion warlock aa destro",
+        "weaver sapo furion wind zeus tide gondar riki legion",
+        "lone, davion, lycan, terroblade, brew, , alche, meepo, marci, morph",
+        "no first blood plz",
+        "cualquiera que no camine o se arrastre. Never por ej toca el piso.",
+        "qop maiden wind lina ta marci drow ",
+        "arkitroll, naix, pugna, abbadon, leoric, clinkz,  lich, muerta, dp",
+        "seguro no tenes pero intentalo...",
+      ];
 
-		context.beginPath();
-		context.moveTo(center,center);
-		context.arc(center,center,center,0, 2*Math.PI);
-		context.lineTo(center,center);
-		context.fillStyle ='#33333333';
-		context.fill();
+      let canvas = document.getElementById("idcanvas");
+      let context = canvas.getContext("2d");
+      let center = canvas.width / 2;
 
-		context.beginPath();
-		context.moveTo(center,center);
-		context.arc(center,center,center-10,0, 2*Math.PI);
-		context.lineTo(center,center);
-		context.fillStyle ='black';
-		context.fill();
+      context.beginPath();
+      context.moveTo(center, center);
+      context.arc(center, center, center, 0, 2 * Math.PI);
+      context.lineTo(center, center);
+      context.fillStyle = "#33333333";
+      context.fill();
 
-		for (var i = 0; i < array_concursantes.length; i++) {
-			context.beginPath();
-			context.moveTo(center,center);
-			context.arc(center,center,center-20,i*2*Math.PI/array_concursantes.length, (i+1)*2*Math.PI/array_concursantes.length);
-			context.lineTo(center,center);
-			context.fillStyle =random_color();
-			context.fill();
+      context.beginPath();
+      context.moveTo(center, center);
+      context.arc(center, center, center - 10, 0, 2 * Math.PI);
+      context.lineTo(center, center);
+      context.fillStyle = "black";
+      context.fill();
 
-			context.save();
-			context.translate(center, center);
-			context.rotate(3*2*Math.PI/(5*array_concursantes.length)+i*2*Math.PI/array_concursantes.length);
-			context.translate(-center, -center);
-			context.font = "13px Comic Sans MS";
-			context.textAlign = "right";
-			context.fillStyle = "white";
-			context.fillText(array_concursantes[i], canvas.width-30, center);
-			context.restore();
-		}
+      for (var i = 0; i < array_concursantes.length; i++) {
+        context.beginPath();
+        context.moveTo(center, center);
+        context.arc(
+          center,
+          center,
+          center - 20,
+          (i * 2 * Math.PI) / array_concursantes.length,
+          ((i + 1) * 2 * Math.PI) / array_concursantes.length
+        );
+        context.lineTo(center, center);
+        context.fillStyle = random_color();
+        context.fill();
 
-		let pos_ini=0;
-		let clic=0;
-		let movement;
-		function sortear(){
-			if (clic==0) {
-				let canvas=document.getElementById("idcanvas");
-				movement=setInterval(function(){
-					pos_ini+=10;
-					canvas.style.transform='rotate('+pos_ini+'deg)';
-				},10);
-				clic=1;
-				document.getElementById("idestado").innerHTML="Detener";
-			}else{
-				clearInterval(movement);
-				clic=0;
-				document.getElementById("idestado").innerHTML="Sortear";
-			}
-		}
+        context.save();
+        context.translate(center, center);
+        context.rotate(
+          (3 * 2 * Math.PI) / (5 * array_concursantes.length) +
+            (i * 2 * Math.PI) / array_concursantes.length
+        );
+        context.translate(-center, -center);
+        context.font = "13px Comic Sans MS";
+        context.textAlign = "right";
+        context.fillStyle = "white";
+        context.fillText(array_concursantes[i], canvas.width - 30, center);
+        context.restore();
+      }
 
-		function random_color(){
-			let ar_digit=['2','3','4','5','6','7','8','9'];
-			let color='';
-			let i=0;
-			while(i<6){
-				let pos=Math.round(Math.random()*(ar_digit.length-1));
-				color=color+''+ar_digit[pos];
-				i++;
-			}
-			return '#'+color;
-		}
-	</script>
-</body>
+      let pos_ini = 0;
+      let clic = 0;
+      let movement;
+      let randomTime;
+      function sortear() {
+        if (clic == 0) {
+          let canvas = document.getElementById("idcanvas");
+          movement = setInterval(function () {
+            pos_ini += 10;
+            canvas.style.transform = "rotate(" + pos_ini + "deg)";
+          }, 10);
+          clic = 1;
+          document.getElementById("idestado").innerHTML = "Detener";
+          randomTime = Math.random() * 4000 + 2000; // Tiempo aleatorio entre 2 y 6 segundos
+          setTimeout(detener, randomTime);
+        }
+      }
+
+      function detener() {
+        clearInterval(movement);
+        clic = 0;
+        document.getElementById("idestado").innerHTML = "Sortear";
+        mostrarGanador();
+      }
+
+      function mostrarGanador() {
+        let deg = pos_ini % 360;
+        let arc = 360 / array_concursantes.length;
+        let index = Math.floor(deg / arc);
+        let ganador = array_concursantes[array_concursantes.length - 1 - index];
+        let descripcion = descripciones[array_concursantes.length - 1 - index];
+        document.getElementById("ganador").innerHTML = "Ganador: " + ganador;
+        document.getElementById("descripcion").innerHTML =
+          "Descripción: " + descripcion;
+      }
+
+      function random_color() {
+        let ar_digit = ["2", "3", "4", "5", "6", "7", "8", "9"];
+        let color = "";
+        let i = 0;
+        while (i < 6) {
+          let pos = Math.round(Math.random() * (ar_digit.length - 1));
+          color = color + "" + ar_digit[pos];
+          i++;
+        }
+        return "#" + color;
+      }
+    </script>
+  </body>
 </html>
